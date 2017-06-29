@@ -45,3 +45,20 @@ SELECT * FROM exercise_logs WHERE type IN (
 
 SELECT * FROM exercise_logs WHERE type IN (
     SELECT type FROM drs_favorites WHERE reason LIKE "%cardiovascular%");
+
+
+/* HAVING */
+-- When we use HAVING, we're applying the conditons to the grouped values, not the individual values in each row--as opposed to using WHERE, which will check each individual value in each row, not the grouped value.
+SELECT type, SUM(calories) AS total_calories FROM exercise_logs GROUP BY type;
+
+SELECT type, SUM(calories) AS total_calories FROM exercise_logs
+    GROUP BY type
+    HAVING total_calories > 150
+    ;
+
+SELECT type, AVG(calories) AS avg_calories FROM exercise_logs
+    GROUP BY type
+    HAVING avg_calories > 70
+    ;
+
+SELECT type FROM exercise_logs GROUP BY type HAVING COUNT(*) >= 2;
